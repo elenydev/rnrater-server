@@ -14,7 +14,7 @@ export const createUser: RequestHandler<
   EmptyInterface,
   CreateUserParams
 > = async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, lastName, nickName, email, password } = req.body;
   const avatar = req.file;
 
   if (!avatar) {
@@ -40,6 +40,7 @@ export const createUser: RequestHandler<
           firstName,
           lastName,
           email,
+          nickName,
           passwordHash: hashedPw,
           avatarUrl: imageUrl,
           policy: true,

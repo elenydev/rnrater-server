@@ -23,7 +23,6 @@ export const authenticateUser: RequestHandler<
   try {
     const user = await Prisma.user.findFirst({
       where: { email: email },
-      include: { favouriteMovies: true },
     });
 
     if (user !== null) {
@@ -37,7 +36,6 @@ export const authenticateUser: RequestHandler<
               email,
               avatarUrl,
               id,
-              favouriteMovies,
             } = user;
             const token = jwt.sign(
               { email: email, userId: id },
@@ -53,7 +51,6 @@ export const authenticateUser: RequestHandler<
                 avatarUrl,
                 userId: id,
                 accessToken: token,
-                favouriteMovies: favouriteMovies,
               },
               message: "Successfull authorization",
             });
