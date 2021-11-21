@@ -8,16 +8,17 @@ generator client {
 }
 
 model User {
-  id             String    @id @default(uuid())
-  firstName      String    @db.VarChar(60)
-  lastName       String    @db.VarChar(90)
-  email          String
-  passwordHash   String
-  avatarUrl      String
-  policy         Boolean
-  version        Int       @default(1)
-  evaluatedPosts Post[]
-  comments       Comment[]
+  id                     String    @id @default(uuid())
+  firstName              String    @db.VarChar(60)
+  lastName               String    @db.VarChar(90)
+  nickName               String    @db.VarChar(25)
+  email                  String
+  passwordHash           String
+  avatarUrl              String
+  policy                 Boolean
+  version                Int       @default(1)
+  evaluatedPosts         Post[]
+  comments               Comment[]
   favouriteCategoriesIds String[]
 }
 

@@ -21,8 +21,8 @@ export const sendEmailAfterUserRegister = (
   const mailOptions = {
     from: "rnrater@gmail.com",
     to: email,
-    subject: "Vimea account",
-    html: `<h3>Thank you for joining our Vimea community ${userFirstName}</h3>
+    subject: "RnRater account",
+    html: `<h3>Thank you for joining our RnRater community ${userFirstName}</h3>
     <br/>
     <div>
     <p>Hi ${userFirstName},</p>
@@ -30,7 +30,7 @@ export const sendEmailAfterUserRegister = (
     <p>Stay tuned for new productions and check your email carefully for getting discount codes from us :)</p>
     <br/>
     <br/>
-    <small>Have a nice day! Vimea team. You can reply direct to this email or catch us on: rnrater@gmail.com</small></p>
+    <small>Have a nice day! RnRater team. You can reply direct to this email or catch us on: rnrater@gmail.com</small></p>
     </div>`,
   };
   transporter.sendMail(mailOptions, function (err) {
@@ -47,7 +47,7 @@ export const sendEmailAfterRemindPassword = (
   const mailOptions = {
     from: "rnrater@gmail.com",
     to: email,
-    subject: "Vimea account",
+    subject: "RnRater account",
     html: `<h3>It looks like you forgot your password</h3>
     <br/>
     <div>
@@ -55,7 +55,7 @@ export const sendEmailAfterRemindPassword = (
     <p>Your new password is: ${newPassword}. You can now log in and change it for your own :)</p>
     <br/>
     <p>If you doesn't tried to remind your password, immediately contact with us!</p>
-    <small>Have a nice day! Vimea team. You can reply direct to this email or catch us on: rnrater@gmail.com</small></p>
+    <small>Have a nice day! RnRater team. You can reply direct to this email or catch us on: rnrater@gmail.com</small></p>
     </div>`,
   };
   transporter.sendMail(mailOptions, function (err) {
@@ -71,7 +71,7 @@ export const sendEmailAfterChangePassword = (
   const mailOptions = {
     from: "rnrater@gmail.com",
     to: email,
-    subject: "Vimea account",
+    subject: "RnRater account",
     html: `<h3>It looks like you forgot your password</h3>
     <br/>
     <div>
@@ -79,7 +79,7 @@ export const sendEmailAfterChangePassword = (
     <p>Your password have been succesfully changed.</p>
     <br/>
     <p>If you doesn't tried to change your password, immediately contact with us!</p>
-    <small>Have a nice day! Vimea team. You can reply direct to this email or catch us on: rnrater@gmail.com</small></p>
+    <small>Have a nice day! RnRater team. You can reply direct to this email or catch us on: rnrater@gmail.com</small></p>
     </div>`,
   };
   transporter.sendMail(mailOptions, function (err) {

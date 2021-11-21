@@ -1,6 +1,7 @@
 import express from "express";
 import methodOverride from "method-override";
 import cors from "cors";
+import userRoutes from "./routes/user/index";
 
 const app = express();
 const port = 8080;
@@ -24,7 +25,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/', router);
+app.use("/", router);
+app.use(userRoutes);
 
 app.listen(port, () => {
   console.log(`App working on ${port}`);
