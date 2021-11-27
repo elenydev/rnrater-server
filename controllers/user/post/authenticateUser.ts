@@ -25,8 +25,8 @@ export const authenticateUser: RequestHandler<
       where: { email: email },
       include: {
         comments: true,
-        evaluatedPosts: true
-      }
+        evaluatedPosts: true,
+      },
     });
 
     if (user !== null) {
@@ -41,7 +41,7 @@ export const authenticateUser: RequestHandler<
               avatarUrl,
               id,
               evaluatedPosts,
-              comments
+              comments,
             } = user;
             const token = jwt.sign(
               { email: email, userId: id },
@@ -51,14 +51,16 @@ export const authenticateUser: RequestHandler<
 
             return res.status(201).send({
               result: {
-                firstName,
-                lastName,
-                email,
-                avatarUrl,
-                userId: id,
+                user: {
+                  firstName,
+                  lastName,
+                  email,
+                  avatarUrl,
+                  userId: id,
+                  evaluatedPosts,
+                  comments,
+                },
                 accessToken: token,
-                evaluatedPosts,
-                comments
               },
               message: "Successfull authorization",
             });
