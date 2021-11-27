@@ -23,6 +23,10 @@ export const authenticateUser: RequestHandler<
   try {
     const user = await Prisma.user.findFirst({
       where: { email: email },
+      include: {
+        comments: true,
+        evaluatedPosts: true
+      }
     });
 
     if (user !== null) {
@@ -36,6 +40,8 @@ export const authenticateUser: RequestHandler<
               email,
               avatarUrl,
               id,
+              evaluatedPosts,
+              comments
             } = user;
             const token = jwt.sign(
               { email: email, userId: id },
@@ -51,6 +57,8 @@ export const authenticateUser: RequestHandler<
                 avatarUrl,
                 userId: id,
                 accessToken: token,
+                evaluatedPosts,
+                comments
               },
               message: "Successfull authorization",
             });
