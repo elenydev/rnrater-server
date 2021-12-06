@@ -32,13 +32,12 @@ export const authenticateUser: RequestHandler<
     if (user !== null) {
       await bcrypt
         .compare(password, user.passwordHash)
-        .then((match) => {
+        .then(async (match) => {
           if (match) {
             const {
               firstName,
               lastName,
               email,
-              avatarUrl,
               id,
               evaluatedPosts,
               comments,
@@ -55,10 +54,9 @@ export const authenticateUser: RequestHandler<
                   firstName,
                   lastName,
                   email,
-                  avatarUrl,
                   userId: id,
                   evaluatedPosts,
-                  comments,
+                  comments
                 },
                 accessToken: token,
               },

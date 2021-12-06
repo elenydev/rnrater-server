@@ -1,5 +1,7 @@
 import aws from "aws-sdk";
 import fs from "fs";
+import { Response } from "express";
+import { errorResponse } from "../utils/errorResponse";
 
 const s3 = new aws.S3({
   accessKeyId: process.env.AWS_KEY_ID,
@@ -20,14 +22,14 @@ export const uploadFile = async (file: Express.Multer.File) => {
   }
 };
 
-export const getFileReadStream = async (fileKey: string) => {
+export const getFileReadStream = async (fileKey: string, res: Response) => {
   try {
     const downloadParams = {
       Key: fileKey,
-      Bucket: process.env.AWS_BUCKET_NAME!
+      Bucket: process.env.AWS_BUCKET_NAME!,
     };
     return s3.getObject(downloadParams).createReadStream();
   } catch (error) {
-    throw Error("Failed to fetch the file.");
+    return errorResponse(res, 400, "We can't find requested resource");
   }
 };
