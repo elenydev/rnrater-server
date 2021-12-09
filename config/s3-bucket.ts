@@ -8,7 +8,7 @@ const s3 = new aws.S3({
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 });
 
-export const uploadFile = async (file: Express.Multer.File) => {
+export const uploadFile = async (file: Express.Multer.File, res: Response) => {
   try {
     const fileStream = fs.createReadStream(file.path);
     const uploadParams = {
@@ -18,7 +18,7 @@ export const uploadFile = async (file: Express.Multer.File) => {
     };
     return s3.upload(uploadParams).promise();
   } catch (error) {
-    throw Error("Failed to upload the file.");
+    errorResponse(res, 400, "Failed to upload a resource");
   }
 };
 
