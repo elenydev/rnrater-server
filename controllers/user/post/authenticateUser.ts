@@ -27,7 +27,7 @@ export const authenticateUser: RequestHandler<
       where: { email: email },
       include: {
         comments: true,
-        evaluatedPosts: true,
+        evaluatedCategoryPosts: true,
       },
     });
 
@@ -36,7 +36,7 @@ export const authenticateUser: RequestHandler<
         .compare(password, user.passwordHash)
         .then(async (match) => {
           if (match) {
-            const { firstName, lastName, email, id, evaluatedPosts, comments } =
+            const { firstName, lastName, email, id, evaluatedCategoryPosts, comments } =
               user;
             const token = jwt.sign(
               { email: email, userId: id },
@@ -54,7 +54,7 @@ export const authenticateUser: RequestHandler<
                   lastName,
                   email,
                   userId: id,
-                  evaluatedPosts,
+                  evaluatedCategoryPosts,
                   comments,
                 },
                 accessToken: token,
