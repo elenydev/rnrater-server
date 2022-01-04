@@ -33,7 +33,7 @@ export const createUser: RequestHandler<
 
     if (!existingUser) {
       const imageUrl = avatar!.filename;
-      await uploadFile(avatar!);
+      await uploadFile(avatar!, res);
       const hashedPw = await bcrypt.hash(password, 12);
       await Prisma.user.create({
         data: {

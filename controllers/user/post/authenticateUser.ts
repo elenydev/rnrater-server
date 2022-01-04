@@ -7,6 +7,8 @@ import { EmptyInterface } from "../../../infrastructure/interfaces/shared";
 import { validationErrorResponse } from "../../../utils/validationErrorResponse";
 import jwt from "jsonwebtoken";
 import { AuthenticateUserParams } from "../../../infrastructure/user/post";
+import { io } from "../../..";
+import { emitEvent } from "../../../services/socketio/socketio";
 
 export const authenticateUser: RequestHandler<
   EmptyInterface,
@@ -25,7 +27,7 @@ export const authenticateUser: RequestHandler<
       where: { email: email },
       include: {
         comments: true,
-        evaluatedPosts: true,
+        evaluatedCategoryPosts: true,
       },
     });
 
@@ -34,19 +36,16 @@ export const authenticateUser: RequestHandler<
         .compare(password, user.passwordHash)
         .then(async (match) => {
           if (match) {
-            const {
-              firstName,
-              lastName,
-              email,
-              id,
-              evaluatedPosts,
-              comments,
-            } = user;
+            const { firstName, lastName, email, id, evaluatedCategoryPosts, comments } =
+              user;
             const token = jwt.sign(
               { email: email, userId: id },
               process.env.SECRET!,
               { expiresIn: "1h" }
             );
+
+            // Only for testing purpose
+            emitEvent(req, "logged");
 
             return res.status(201).send({
               result: {
@@ -55,8 +54,8 @@ export const authenticateUser: RequestHandler<
                   lastName,
                   email,
                   userId: id,
-                  evaluatedPosts,
-                  comments
+                  evaluatedCategoryPosts,
+                  comments,
                 },
                 accessToken: token,
               },

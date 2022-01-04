@@ -25,7 +25,7 @@ export const getUserAvatar: RequestHandler<
       where: { id: userId },
       include: {
         comments: true,
-        evaluatedPosts: true,
+        evaluatedCategoryPosts: true,
       },
     });
 
