@@ -2,6 +2,7 @@ import express from "express";
 import methodOverride from "method-override";
 import cors from "cors";
 import userRoutes from "./routes/user/index";
+import categoriesRoutes from './routes/categories/index';
 import { Server } from "socket.io";
 
 const app = express();
@@ -28,6 +29,7 @@ app.use((req, res, next) => {
 
 app.use("/", router);
 app.use(userRoutes);
+app.use(categoriesRoutes);
 
 const server = app.listen(port, () => {
   console.log(`App working on ${port}`);

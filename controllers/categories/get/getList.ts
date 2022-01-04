@@ -5,8 +5,9 @@ import { errorResponse } from "../../../utils/errorResponse";
 import { validationResult } from "express-validator";
 import { validationErrorResponse } from "../../../utils/validationErrorResponse";
 import { GetCategoriesParams } from "../../../infrastructure/categories/get";
+import { paginatedResults } from "../../../utils/paginatedResult";
 
-export const getCategories: RequestHandler<
+export const getList: RequestHandler<
   EmptyInterface,
   EmptyInterface,
   EmptyInterface,
@@ -20,12 +21,25 @@ export const getCategories: RequestHandler<
   }
 
   try {
-    const categories = await prisma.category.findFirst({
-      skip: pageNumber,
-      take: pageSize,
+    const categories = await prisma.category.findMany({
+      skip: +pageNumber,
+      take: +pageSize,
     });
+    const categoriesCount = await prisma.category.count();
 
-    return errorResponse(res, 400, "Loading categories failed, please try again");
+    if (categories && categoriesCount) {
+      return res
+        .status(200)
+        .send(
+          paginatedResults(categories, pageNumber, pageSize, categoriesCount)
+        );
+    }
+
+    return errorResponse(
+      res,
+      400,
+      "Loading categories failed, please try again"
+    );
   } catch (err) {
     errorResponse(res, 500);
   }

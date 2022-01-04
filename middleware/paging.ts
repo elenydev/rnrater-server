@@ -5,7 +5,7 @@ import {
 } from "../infrastructure/interfaces/shared";
 import { errorResponse } from "../utils/errorResponse";
 
-export const handlePaging = (
+export default (
   req: Request<
     EmptyInterface,
     EmptyInterface,
@@ -16,12 +16,12 @@ export const handlePaging = (
   next: NextFunction
 ): void | Response => {
   if (!req.query.pageNumber && !req.query.pageSize) {
-    req.query.pageNumber = 1;
-    req.query.pageSize = 10;
+    req.query.pageNumber = 1 as unknown as string;
+    req.query.pageSize = 10 as unknown as string;
     return;
   }
 
-  if (req.query.pageSize > 50) {
+  if (+req.query.pageSize > 50) {
     return errorResponse(
       res,
       400,
@@ -30,10 +30,10 @@ export const handlePaging = (
   }
 
   const { pageNumber, pageSize }: PagingQueryParams = req.query;
-  const handledPageSize = pageSize > 200 ? 200 : pageSize;
+  const handledPageSize = +pageSize > 200 ? 200 : pageSize;
 
-  req.query.pageNumber = pageNumber * handledPageSize;
-  req.query.pageSize = handledPageSize;
+  req.query.pageNumber = +pageNumber * +handledPageSize as unknown as string;;
+  req.query.pageSize = handledPageSize as unknown as string;;
 
   next();
 };
