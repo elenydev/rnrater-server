@@ -15,8 +15,18 @@ export const handlePaging = (
   res: Response,
   next: NextFunction
 ): void | Response => {
-  if (!req.query.pageNumber || !req.query.pageSize) {
-    return errorResponse(res, 400, "Loading list failed, please try again");
+  if (!req.query.pageNumber && !req.query.pageSize) {
+    req.query.pageNumber = 1;
+    req.query.pageSize = 10;
+    return;
+  }
+
+  if (req.query.pageSize > 50) {
+    return errorResponse(
+      res,
+      400,
+      "Param pageSize can maximum accept value of 50, try again with lower"
+    );
   }
 
   const { pageNumber, pageSize }: PagingQueryParams = req.query;
