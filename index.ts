@@ -1,9 +1,10 @@
-import express from "express";
+import express, { Response } from "express";
 import methodOverride from "method-override";
 import cors from "cors";
 import userRoutes from "./routes/user/index";
-import categoriesRoutes from './routes/categories/index';
+import categoriesRoutes from "./routes/categories/index";
 import { Server } from "socket.io";
+import { errorResponse } from "./utils/errorResponse";
 
 const app = express();
 const port = 8080;
@@ -30,6 +31,10 @@ app.use((req, res, next) => {
 app.use("/", router);
 app.use(userRoutes);
 app.use(categoriesRoutes);
+
+app.use((req, res) => {
+  return errorResponse(res, 404, "Something went wrong, please reload the app");
+});
 
 const server = app.listen(port, () => {
   console.log(`App working on ${port}`);
