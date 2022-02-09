@@ -25,6 +25,16 @@ export const createCategory: RequestHandler<
   }
 
   try {
+    const existingCategory = await Prisma.category.findFirst({
+      where: {
+        name,
+      },
+    });
+
+    if (existingCategory) {
+      return errorResponse(res, 422, "Category already exists");
+    }
+
     const imageUrl = categoryImage!.filename;
     await uploadFile(categoryImage!, res);
     await Prisma.category.create({
