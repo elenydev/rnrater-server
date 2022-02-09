@@ -23,7 +23,7 @@ export const getList: RequestHandler<
   try {
     const categories = await prisma.category.findMany({
       skip: +pageNumber,
-      take: +pageSize,
+      take: +pageSize
     });
     const categoriesCount = await prisma.category.count();
 
