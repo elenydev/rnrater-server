@@ -1,8 +1,8 @@
 import { Router } from "express";
 import getRoutes from "./get/index";
 
-const userRoutes = Router();
+const categoriesRoutes = Router();
 
-userRoutes.use("/categories/get/", getRoutes);
+categoriesRoutes.use("/categories/get/", getRoutes);
 
-export default userRoutes;
+export default categoriesRoutes;
