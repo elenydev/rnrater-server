@@ -5,7 +5,7 @@ import { createCategoryValidator } from "../../../validators/category/post";
 
 const router = Router();
 
-router.get(
+router.post(
   "/createCategory",
   verifyToken,
   createCategoryValidator(),
