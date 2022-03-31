@@ -27,7 +27,7 @@ export const getList: RequestHandler<
     });
     const categoriesCount = await prisma.category.count();
 
-    if (categories && categoriesCount) {
+    if (categories && categoriesCount || categoriesCount === 0) {
       return res
         .status(200)
         .send(

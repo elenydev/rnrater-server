@@ -18,7 +18,7 @@ export default (
   if (!req.query.pageNumber && !req.query.pageSize) {
     req.query.pageNumber = 1 as unknown as string;
     req.query.pageSize = 10 as unknown as string;
-    return;
+    return next();
   }
 
   if (+req.query.pageSize > 50) {
