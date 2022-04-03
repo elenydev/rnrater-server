@@ -6,6 +6,7 @@ import { validationResult } from "express-validator";
 import { validationErrorResponse } from "../../../utils/validationErrorResponse";
 import { GetCategoriesParams } from "../../../infrastructure/categories/get";
 import { paginatedResults } from "../../../utils/paginatedResult";
+import { getPaginationValue } from "../../../utils/getPaginatedParams";
 
 export const getList: RequestHandler<
   EmptyInterface,
@@ -22,12 +23,11 @@ export const getList: RequestHandler<
 
   try {
     const categories = await prisma.category.findMany({
-      skip: +pageNumber,
-      take: +pageSize
+      ...getPaginationValue({ pageSize, pageNumber }),
     });
     const categoriesCount = await prisma.category.count();
 
-    if (categories && categoriesCount || categoriesCount === 0) {
+    if ((categories && categoriesCount) || categoriesCount === 0) {
       return res
         .status(200)
         .send(
