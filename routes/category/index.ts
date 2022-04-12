@@ -4,7 +4,7 @@ import postRoutes from './post/index';
 
 const categoriesRoutes = Router();
 
-categoriesRoutes.use("/categories/get/", getRoutes);
-categoriesRoutes.use('/categories/post/', postRoutes);
+categoriesRoutes.use("/category/get/", getRoutes);
+categoriesRoutes.use('/category/post/', postRoutes);
 
 export default categoriesRoutes;

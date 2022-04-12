@@ -2,7 +2,8 @@ import express, { Response } from "express";
 import methodOverride from "method-override";
 import cors from "cors";
 import userRoutes from "./routes/user/index";
-import categoriesRoutes from "./routes/categories/index";
+import categoriesRoutes from "./routes/category/index";
+import categoryPostRoutes from './routes/categoryPost/index';
 import { Server } from "socket.io";
 import { errorResponse } from "./utils/errorResponse";
 
@@ -31,6 +32,7 @@ app.use((req, res, next) => {
 app.use("/", router);
 app.use(userRoutes);
 app.use(categoriesRoutes);
+app.use(categoryPostRoutes);
 
 app.use((req, res) => {
   return errorResponse(res, 404, "Something went wrong, please reload the app");
