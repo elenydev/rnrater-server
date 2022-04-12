@@ -4,7 +4,7 @@ import prisma from "../../../prisma";
 import { errorResponse } from "../../../utils/errorResponse";
 import { validationResult } from "express-validator";
 import { validationErrorResponse } from "../../../utils/validationErrorResponse";
-import { GetCategoriesParams } from "../../../infrastructure/categories/get";
+import { GetCategoriesParams } from "../../../infrastructure/category/get";
 import { paginatedResults } from "../../../utils/paginatedResult";
 import { getPaginationValue } from "../../../utils/getPaginatedParams";
 

@@ -5,7 +5,7 @@ import prisma from "../../../prisma";
 import { errorResponse } from "../../../utils/errorResponse";
 import { validationResult } from "express-validator";
 import { validationErrorResponse } from "../../../utils/validationErrorResponse";
-import { GetCategoryImageParams } from "../../../infrastructure/categories/get";
+import { GetCategoryImageParams } from "../../../infrastructure/category/get";
 
 export const getCategoryImage: RequestHandler<
   EmptyInterface,

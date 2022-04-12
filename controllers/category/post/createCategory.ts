@@ -5,7 +5,7 @@ import Prisma from "../../../prisma";
 import { EmptyInterface } from "../../../infrastructure/interfaces/shared";
 import { uploadFile } from "../../../config/s3-bucket";
 import { validationErrorResponse } from "../../../utils/validationErrorResponse";
-import { CreateCategoryParams } from "../../../infrastructure/categories/post";
+import { CreateCategoryParams } from "../../../infrastructure/category/post";
 
 export const createCategory: RequestHandler<
   EmptyInterface,

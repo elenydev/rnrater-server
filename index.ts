@@ -2,7 +2,7 @@ import express, { Response } from "express";
 import methodOverride from "method-override";
 import cors from "cors";
 import userRoutes from "./routes/user/index";
-import categoriesRoutes from "./routes/categories/index";
+import categoriesRoutes from "./routes/category/index";
 import { Server } from "socket.io";
 import { errorResponse } from "./utils/errorResponse";
 

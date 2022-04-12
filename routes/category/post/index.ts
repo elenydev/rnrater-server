@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createCategory } from "../../../controllers/categories/post/createCategory";
+import { createCategory } from "../../../controllers/category/post/createCategory";
 import verifyToken from "../../../middleware/verifyToken";
 import { createCategoryValidator } from "../../../validators/category/post";
 import upload from "../../../config/multer";
