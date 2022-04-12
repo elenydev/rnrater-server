@@ -4,17 +4,17 @@ import prisma from "../../../prisma";
 import { errorResponse } from "../../../utils/errorResponse";
 import { validationResult } from "express-validator";
 import { validationErrorResponse } from "../../../utils/validationErrorResponse";
-import { GetCategoriesParams } from "../../../infrastructure/category/get";
 import { paginatedResults } from "../../../utils/paginatedResult";
 import { getPaginationValue } from "../../../utils/getPaginatedParams";
+import { GetCategoryPostsParams } from "../../../infrastructure/categoryPost/get";
 
 export const getList: RequestHandler<
   EmptyInterface,
   EmptyInterface,
   EmptyInterface,
-  GetCategoriesParams
+  GetCategoryPostsParams
 > = async (req, res) => {
-  const { pageNumber, pageSize } = req.query;
+  const { pageNumber, pageSize, categoryId } = req.query;
 
   const validationStatus = validationResult(req.query);
   if (!validationStatus.isEmpty()) {
@@ -22,23 +22,31 @@ export const getList: RequestHandler<
   }
 
   try {
-    const categories = await prisma.category.findMany({
+    const categoryPosts = await prisma.categoryPost.findMany({
+      where: {
+        categoryId,
+      },
       ...getPaginationValue({ pageSize, pageNumber }),
     });
-    const categoriesCount = await prisma.category.count();
+    const categoryPostsCount = await prisma.categoryPost.count();
 
-    if (categories && (categoriesCount || categoriesCount === 0)) {
+    if (categoryPosts && (categoryPostsCount || categoryPostsCount === 0)) {
       return res
         .status(200)
         .send(
-          paginatedResults(categories, pageNumber, pageSize, categoriesCount)
+          paginatedResults(
+            categoryPosts,
+            pageNumber,
+            pageSize,
+            categoryPostsCount
+          )
         );
     }
 
     return errorResponse(
       res,
       400,
-      "Loading categories failed, please try again"
+      "Loading category posts failed, please try again"
     );
   } catch (err) {
     errorResponse(res, 500);
