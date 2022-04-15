@@ -23,15 +23,16 @@ model User {
 }
 
 model Category {
-  id            String         @id @default(uuid())
-  name          String
+  id               String         @id @default(uuid())
+  name             String
   categoryImageUrl String
-  categoryPosts CategoryPost[]
+  categoryPosts    CategoryPost[]
 }
 
 model CategoryPost {
   id           String    @id @default(uuid())
   imageUrl     String
+  title        String
   rates        Int[]
   averageRates Float
   comments     Comment[]
