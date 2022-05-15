@@ -32,7 +32,7 @@ model Category {
 model CategoryPost {
   id           String    @id @default(uuid())
   imageUrl     String
-  title        String
+  title        String    @default("")
   rates        Int[]
   averageRates Float
   comments     Comment[]
