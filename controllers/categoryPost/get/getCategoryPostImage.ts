@@ -1,16 +1,17 @@
 import { RequestHandler } from "express";
 import { EmptyInterface } from "../../../infrastructure/interfaces/shared";
+import { sendSingleFile } from "../../files/post";
 import prisma from "../../../prisma";
 import { errorResponse } from "../../../utils/errorResponse";
 import { validationResult } from "express-validator";
 import { validationErrorResponse } from "../../../utils/validationErrorResponse";
-import { GetCategoryPostByIdParams } from "../../../infrastructure/categoryPost/get";
+import { GetCategoryPostImageParams } from "../../../infrastructure/categoryPost/get";
 
-export const getById: RequestHandler<
+export const getCategoryPostImage: RequestHandler<
   EmptyInterface,
   EmptyInterface,
   EmptyInterface,
-  GetCategoryPostByIdParams
+  GetCategoryPostImageParams
 > = async (req, res) => {
   const { categoryPostId } = req.query;
 
@@ -21,25 +22,14 @@ export const getById: RequestHandler<
 
   try {
     const categoryPost = await prisma.categoryPost.findFirst({
-      where: {
-        id: categoryPostId,
-      },
+      where: { id: categoryPostId },
     });
 
     if (categoryPost) {
-      return res
-        .status(200)
-        .send({
-          result: categoryPost
-        }
-        );
+      return await sendSingleFile(categoryPost.imageUrl, res);
     }
 
-    return errorResponse(
-      res,
-      400,
-      "Loading category post failed, please try again"
-    );
+    return errorResponse(res, 400, "We can't find a category post, try again");
   } catch (err) {
     errorResponse(res, 500);
   }
