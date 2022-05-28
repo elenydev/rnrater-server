@@ -8,3 +8,7 @@ export interface GetCategoryPostsParams extends PagingQueryParams {
 export interface GetCategoryPostByIdParams extends core.ParamsDictionary {
   categoryPostId: string;
 }
+
+export interface GetCategoryPostImageParams extends core.ParamsDictionary {
+  categoryPostId: string;
+}
