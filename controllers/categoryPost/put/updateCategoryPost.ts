@@ -11,7 +11,7 @@ export const updateCategoryPost: RequestHandler<
   EmptyInterface,
   UpdateCategoryPostParams
 > = async (req, res) => {
-  const { postId, data } = req.body;
+  const { postId, data, version } = req.body;
 
   const validationStatus = validationResult(req.body);
   if (!validationStatus.isEmpty()) {
@@ -24,6 +24,14 @@ export const updateCategoryPost: RequestHandler<
     });
 
     if (existingCategoryPost) {
+      if (version !== existingCategoryPost.version + 1) {
+        return errorResponse(
+          res,
+          422,
+          "Someone already edited this Category Post, please refresh view and try again"
+        );
+      }
+
       await Prisma.categoryPost.update({
         where: {
           id: postId,

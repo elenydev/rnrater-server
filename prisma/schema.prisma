@@ -39,6 +39,7 @@ model CategoryPost {
   evaluators   User[]
   category     Category  @relation(fields: [categoryId], references: [id])
   categoryId   String
+  version      Int       @default(1)
 }
 
 model Comment {
