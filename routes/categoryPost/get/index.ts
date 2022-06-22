@@ -17,7 +17,7 @@ router.get(
 );
 
 router.get(
-  '/getById',
+  '/getById/:categoryPostId',
   verifyToken,
   getCategoryPostValidator(),
   getById
