@@ -7,7 +7,6 @@ import { EmptyInterface } from "../../../infrastructure/interfaces/shared";
 import { validationErrorResponse } from "../../../utils/validationErrorResponse";
 import jwt from "jsonwebtoken";
 import { AuthenticateUserParams } from "../../../infrastructure/user/post";
-import { io } from "../../..";
 import { emitEvent } from "../../../services/socketio/socketio";
 
 export const authenticateUser: RequestHandler<

@@ -5,15 +5,14 @@ import Prisma from "../../../prisma";
 import { EmptyInterface } from "../../../infrastructure/interfaces/shared";
 import { validationErrorResponse } from "../../../utils/validationErrorResponse";
 import { PostCommentParams } from "../../../infrastructure/comment/post";
+import { emitEvent } from "../../../services/socketio/socketio";
 
 export const createComment: RequestHandler<
   EmptyInterface,
   EmptyInterface,
   PostCommentParams
 > = async (req, res) => {
-  const { authorId,
-    categoryPostId,
-    content } = req.body;
+  const { authorId, categoryPostId, content } = req.body;
 
   const validationStatus = validationResult(req.body);
   if (!validationStatus.isEmpty()) {
@@ -25,9 +24,11 @@ export const createComment: RequestHandler<
       data: {
         authorId,
         categoryPostId,
-        content
+        content,
       },
     });
+
+    emitEvent(req, `${categoryPostId}-comment-added`);
 
     res.status(201).send({ message: "Comment successfully added" });
   } catch (err) {
