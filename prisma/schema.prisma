@@ -48,4 +48,5 @@ model Comment {
   authorId       String
   categoryPost   CategoryPost @relation(fields: [categoryPostId], references: [id])
   categoryPostId String
+  content        String       @default("")
 }

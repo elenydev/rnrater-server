@@ -6,6 +6,7 @@ import categoriesRoutes from "./routes/category/index";
 import categoryPostRoutes from './routes/categoryPost/index';
 import { Server } from "socket.io";
 import { errorResponse } from "./utils/errorResponse";
+import commentRoutes from "./routes/comment";
 
 const app = express();
 const port = 8080;
@@ -33,6 +34,7 @@ app.use("/", router);
 app.use(userRoutes);
 app.use(categoriesRoutes);
 app.use(categoryPostRoutes);
+app.use(commentRoutes);
 
 app.use((req, res) => {
   return errorResponse(res, 404, "Something went wrong, please reload the app");

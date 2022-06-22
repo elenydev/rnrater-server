@@ -1,5 +1,5 @@
-export interface CreateCategoryPostParams{ 
+export interface CreateCategoryPostParams {
   title: string;
   categoryId: string;
-  categoryPostImage: File
+  categoryPostImage: File;
 }
