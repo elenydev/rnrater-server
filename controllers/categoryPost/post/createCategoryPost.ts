@@ -12,7 +12,7 @@ export const createCategoryPost: RequestHandler<
   EmptyInterface,
   CreateCategoryPostParams
 > = async (req, res) => {
-  const { title, categoryId } = req.body;
+  const { title, categoryId, description } = req.body;
   const categoryPostImage = req.file;
 
   if (!categoryPostImage) {
@@ -35,6 +35,7 @@ export const createCategoryPost: RequestHandler<
       await Prisma.categoryPost.create({
         data: {
           title,
+          description,
           imageUrl,
           categoryId,
           averageRates: 0,
