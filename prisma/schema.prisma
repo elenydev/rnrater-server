@@ -33,12 +33,14 @@ model CategoryPost {
   id           String    @id @default(uuid())
   imageUrl     String
   title        String    @default("")
+  description  String    @default("")
   rates        Int[]
   averageRates Float
   comments     Comment[]
   evaluators   User[]
   category     Category  @relation(fields: [categoryId], references: [id])
   categoryId   String
+  version      Int       @default(1)
 }
 
 model Comment {
@@ -48,4 +50,5 @@ model Comment {
   authorId       String
   categoryPost   CategoryPost @relation(fields: [categoryPostId], references: [id])
   categoryPostId String
+  content        String       @default("")
 }

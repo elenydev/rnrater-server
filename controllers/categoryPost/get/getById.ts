@@ -7,14 +7,13 @@ import { validationErrorResponse } from "../../../utils/validationErrorResponse"
 import { GetCategoryPostByIdParams } from "../../../infrastructure/categoryPost/get";
 
 export const getById: RequestHandler<
+  GetCategoryPostByIdParams,
   EmptyInterface,
-  EmptyInterface,
-  EmptyInterface,
-  GetCategoryPostByIdParams
+  EmptyInterface
 > = async (req, res) => {
-  const { categoryPostId } = req.query;
+  const { categoryPostId } = req.params;
 
-  const validationStatus = validationResult(req.query);
+  const validationStatus = validationResult(req.params);
   if (!validationStatus.isEmpty()) {
     return validationErrorResponse(res, validationStatus);
   }
@@ -27,12 +26,9 @@ export const getById: RequestHandler<
     });
 
     if (categoryPost) {
-      return res
-        .status(200)
-        .send({
-          result: categoryPost
-        }
-        );
+      return res.status(200).send({
+        result: categoryPost,
+      });
     }
 
     return errorResponse(

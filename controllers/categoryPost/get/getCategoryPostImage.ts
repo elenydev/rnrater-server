@@ -31,6 +31,6 @@ export const getCategoryPostImage: RequestHandler<
 
     return errorResponse(res, 400, "We can't find a category post, try again");
   } catch (err) {
-    errorResponse(res, 500);
+    errorResponse(res, 500, "Something went wrong with fetching Category Post Image, try refresh the view");
   }
 };
