@@ -31,6 +31,6 @@ export const getCategoryImage: RequestHandler<
 
     return errorResponse(res, 400, "We can't find a category, try again");
   } catch (err) {
-    errorResponse(res, 500);
+    errorResponse(res, 500, "Fetching Category Image failed, please refresh view and try again");
   }
 };
