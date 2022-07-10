@@ -5,8 +5,8 @@ import deleteRoutes from "./delete/index"
 
 const commentRoutes = Router();
 
-postRoutes.use("/comment/post/", postRoutes);
-getRoutes.use("/comment/get/", getRoutes);
-deleteRoutes.use("/comment/delete/", deleteRoutes);
+commentRoutes.use("/comment/post/", postRoutes);
+commentRoutes.use("/comment/get/", getRoutes);
+commentRoutes.use("/comment/delete/", deleteRoutes);
 
 export default commentRoutes;

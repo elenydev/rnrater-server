@@ -13,7 +13,6 @@ export const createComment: RequestHandler<
   PostCommentParams
 > = async (req, res) => {
   const { authorId, categoryPostId, content } = req.body;
-
   const validationStatus = validationResult(req.body);
   if (!validationStatus.isEmpty()) {
     return validationErrorResponse(res, validationStatus);
