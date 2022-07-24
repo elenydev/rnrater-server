@@ -6,7 +6,7 @@ export const getPaginationValue = ({
   pageNumber: string;
 }) => {
   return {
-    skip: +pageNumber === 1 ? 0 : +pageNumber,
+    skip: +pageNumber > 1 ? (+pageNumber - 1) * +pageSize : 0,
     take: +pageSize,
   };
 };
