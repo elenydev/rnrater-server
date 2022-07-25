@@ -5,7 +5,7 @@ import { deleteCommentValidator } from "../../../validators/comment/delete";
 
 const router = Router();
 
-router.post(
+router.delete(
   "/deleteComment/:commentId",
   verifyToken,
   deleteCommentValidator(),

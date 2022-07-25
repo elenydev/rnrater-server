@@ -1,4 +1,4 @@
-import express, { Response } from "express";
+import express, { ErrorRequestHandler, Response } from "express";
 import methodOverride from "method-override";
 import cors from "cors";
 import userRoutes from "./routes/user/index";
@@ -37,7 +37,7 @@ app.use(categoryPostRoutes);
 app.use(commentRoutes);
 
 app.use((req, res) => {
-  return errorResponse(res, 404, "Something went wrong, please reload the app");
+  return errorResponse(res, 500, "Something went wrong, please reload the app");
 });
 
 const server = app.listen(port, () => {

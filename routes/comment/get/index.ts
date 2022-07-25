@@ -6,7 +6,7 @@ import { getCommentsList } from "../../../controllers/comment/get/getCommentsLis
 
 const router = Router();
 
-router.post(
+router.get(
   "/getCommentsList",
   verifyToken,
   handlePaging,

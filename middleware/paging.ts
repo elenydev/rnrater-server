@@ -15,7 +15,7 @@ export default (
   res: Response,
   next: NextFunction
 ): void | Response => {
-  if (!req.query.pageNumber && !req.query.pageSize) {
+  if (!req.query.pageNumber || !req.query.pageSize) {
     req.query.pageNumber = 1 as unknown as string;
     req.query.pageSize = 10 as unknown as string;
     return next();
@@ -30,9 +30,9 @@ export default (
   }
 
   const { pageNumber, pageSize }: PagingQueryParams = req.query;
-  const handledPageSize = +pageSize > 200 ? 200 : pageSize;
+  const handledPageSize = +pageSize > 200 ? 200 : +pageSize;
 
-  req.query.pageNumber = +pageNumber * +handledPageSize as unknown as string;;
+  req.query.pageNumber = +pageNumber as unknown as string;;
   req.query.pageSize = handledPageSize as unknown as string;;
 
   next();
