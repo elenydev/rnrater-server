@@ -35,6 +35,7 @@
     "cookie": "^0.4.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
+    "expo-server-sdk": "^3.6.0",
     "express": "^4.17.1",
     "express-validator": "^6.12.1",
     "gridfs-stream": "^1.1.1",

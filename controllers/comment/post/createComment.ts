@@ -6,6 +6,7 @@ import { EmptyInterface } from "../../../infrastructure/interfaces/shared";
 import { validationErrorResponse } from "../../../utils/validationErrorResponse";
 import { PostCommentParams } from "../../../infrastructure/comment/post";
 import { emitEvent } from "../../../services/socketio/socketio";
+import { sendPushNotification } from "../../../services/notifications/sendPushNotification";
 
 export const createComment: RequestHandler<
   EmptyInterface,
@@ -13,6 +14,7 @@ export const createComment: RequestHandler<
   PostCommentParams
 > = async (req, res) => {
   const { authorId, categoryPostId, content } = req.body;
+  console.log(req)
   const validationStatus = validationResult(req.body);
   if (!validationStatus.isEmpty()) {
     return validationErrorResponse(res, validationStatus);
@@ -27,6 +29,10 @@ export const createComment: RequestHandler<
       },
     });
 
+    sendPushNotification(
+      "ExponentPushToken[fB8YQdKm-GRMNOnT_Ry-z-]",
+      "Comment added"
+    );
     emitEvent(req, `${categoryPostId}-comment-added`);
 
     res.status(201).send({ message: "Comment successfully added" });
