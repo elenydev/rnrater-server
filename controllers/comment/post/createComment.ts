@@ -19,17 +19,25 @@ export const createComment: RequestHandler<
   }
 
   try {
-    await Prisma.comment.create({
+    const comment = await Prisma.comment.create({
       data: {
         authorId,
         categoryPostId,
         content,
       },
+      include: {
+        author: true,
+      },
     });
 
-    emitEvent(req, `${categoryPostId}-comment-added`);
-
     res.status(201).send({ message: "Comment successfully added" });
+
+    emitEvent(req, `${categoryPostId}-comment-added`, {
+      id: comment.id,
+      createdAt: comment.createdAt,
+      author: comment.author,
+      content: comment.content,
+    });
   } catch (err) {
     errorResponse(res, 500);
   }
