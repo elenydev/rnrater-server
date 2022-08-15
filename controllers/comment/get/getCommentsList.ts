@@ -36,7 +36,11 @@ export const getCommentsList: RequestHandler<
       ],
       ...getPaginationValue({ pageSize, pageNumber }),
     });
-    const commentsCount = await prisma.comment.count();
+    const commentsCount = await prisma.comment.count({
+      where: {
+        categoryPostId
+      }
+    });
 
     if (comments && (commentsCount || commentsCount === 0)) {
       return res
