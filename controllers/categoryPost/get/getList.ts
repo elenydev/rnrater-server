@@ -28,7 +28,11 @@ export const getList: RequestHandler<
       },
       ...getPaginationValue({ pageSize, pageNumber }),
     });
-    const categoryPostsCount = await prisma.categoryPost.count();
+    const categoryPostsCount = await prisma.categoryPost.count({
+      where: {
+        categoryId
+      }
+    });
 
     if (categoryPosts && (categoryPostsCount || categoryPostsCount === 0)) {
       return res
