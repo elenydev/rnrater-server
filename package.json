@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npx prisma generate & tsc & node ./build/index.js",
-    "test": "jest -i"
+    "test": "jest -i --watch"
   },
   "keywords": [],
   "author": "",

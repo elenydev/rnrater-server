@@ -1,9 +1,9 @@
-import express, { ErrorRequestHandler, Response } from "express";
+import express from "express";
 import methodOverride from "method-override";
 import cors from "cors";
 import userRoutes from "./routes/user/index";
 import categoriesRoutes from "./routes/category/index";
-import categoryPostRoutes from './routes/categoryPost/index';
+import categoryPostRoutes from "./routes/categoryPost/index";
 import { Server } from "socket.io";
 import { errorResponse } from "./utils/errorResponse";
 import commentRoutes from "./routes/comment";

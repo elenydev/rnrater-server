@@ -10,6 +10,7 @@ export const sendSingleFile = async (
     const readStream = await getFileReadStream(fileName, res);
     readStream.pipe(res);
   } catch (error) {
+    console.log(error);
     errorResponse(res, 400, "Could not find requested resource");
   }
 };
