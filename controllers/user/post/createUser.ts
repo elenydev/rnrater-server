@@ -18,7 +18,7 @@ export const createUser: RequestHandler<
   const avatar = req.file;
 
   if (!avatar) {
-    return errorResponse(res, 400, "Avatar is required");
+    return errorResponse(res, 422, "Avatar is required");
   }
 
   const validationStatus = validationResult(req.body);
