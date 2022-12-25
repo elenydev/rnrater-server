@@ -6,8 +6,6 @@ import {
   mockResponse,
 } from "../../../../mocks/controllerParams";
 import { prismaMock } from "../../../../mocks/singleton";
-
-
 jest.mock("../../../../config/s3-bucket", () => ({
   uploadFile: jest.fn().mockResolvedValue({
   }),
@@ -15,14 +13,10 @@ jest.mock("../../../../config/s3-bucket", () => ({
 
 jest.mock("../../../../controllers/mailers", () => ({
   sendEmailAfterUserRegister: jest.fn()
-}))
-
-beforeEach(() => {
-  jest.resetModules();
-})
-
+}));
 
 describe('Should test /post createUser controller', () => {
+
   it('Should succesfully create user', async () => {
     const mReq = mockRequest();
     const mRes = mockResponse();
@@ -74,33 +68,4 @@ describe('Should test /post createUser controller', () => {
   })
 
 
-})
-
-
-
-
-describe('Should test /post createUser controller with validators', () => {
-
-  it('Should return 422 if any of required fields is not provided', async () => {
-
-    jest.doMock(('express-validator'), () => ({
-      validationResult: jest.fn().mockReturnValue({
-        isEmpty: jest.fn().mockReturnValue(false),
-        array: jest.fn().mockReturnValue([{
-          msg: 'Error with param password',
-          param: 'password'
-        }])
-      })
-    }))
-    
-    const mReq = mockRequest();
-    const mRes = mockResponse();
-
-    mReq.file = {} as any
-    mReq.body.password = "123"
-  
-    await createUser(mReq, mRes, mockNext());
-
-    expect(mRes.status).toHaveBeenCalledWith(422);
-  })
 })
