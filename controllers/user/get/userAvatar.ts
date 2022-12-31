@@ -30,11 +30,12 @@ export const getUserAvatar: RequestHandler<
     });
 
     if (user) {
-      return await sendSingleFile(user.avatarUrl, res);
+      const result = await sendSingleFile(user.avatarUrl, res);
+      return result;
     }
 
     return errorResponse(res, 400, "We can't find a user, try again");
   } catch (err) {
-    errorResponse(res, 500);
+    return errorResponse(res, 500);
   }
 };
