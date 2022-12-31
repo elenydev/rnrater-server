@@ -5,4 +5,5 @@ module.exports = {
     preset: 'ts-jest',
     testEnvironment: 'node',
     setupFilesAfterEnv: ['./mocks/singleton.ts'],
+    testTimeout: 10000
 }

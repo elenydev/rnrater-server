@@ -41,11 +41,13 @@ app.use((req, res) => {
 });
 
 const server = app.listen(port, () => {
-  console.log(`App working on ${port}`);
+  console.log('running')
 });
 
-export const io = new Server(server);
+const io = new Server(server);
 
 io.on("connection", (socket) => {
   app.set("socket", socket);
 });
+
+export default router

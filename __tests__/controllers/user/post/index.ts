@@ -1,3 +1,5 @@
+import request from 'supertest';
+import express from "express";
 import { User } from "@prisma/client";
 import { createUser } from "../../../../controllers/user/post/createUser";
 import {
@@ -6,6 +8,14 @@ import {
   mockResponse,
 } from "../../../../mocks/controllerParams";
 import { prismaMock } from "../../../../mocks/singleton";
+import userRoutes from '../../../../routes/user';
+
+
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(userRoutes)
+
 jest.mock("../../../../config/s3-bucket", () => ({
   uploadFile: jest.fn().mockResolvedValue({
   }),
@@ -14,6 +24,7 @@ jest.mock("../../../../config/s3-bucket", () => ({
 jest.mock("../../../../controllers/mailers", () => ({
   sendEmailAfterUserRegister: jest.fn()
 }));
+
 
 describe('Should test /post createUser controller', () => {
 
@@ -66,6 +77,15 @@ describe('Should test /post createUser controller', () => {
       message: "User already exist"
     })
   })
+})
 
+describe('/post createUser route', () => {
+  it('Should return validation error if any of fields is not provided', async () => {
+    const res = await request(app).post('/user/post/createUser').type("json").send({
+      firstName: 'Damian'
+    })
 
+    expect(res.statusCode).toBe(422)
+
+  })
 })
